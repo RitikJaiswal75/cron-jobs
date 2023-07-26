@@ -1,9 +1,14 @@
 import { env } from './types/global.types';
 
+async function doSomeTaskOnASchedule(env: env) {
+	return new Response(JSON.stringify({ message: 'Done', env: env.CURRENT_ENVIRONMENT }));
+}
+
 export default {
-	// ToDo: remove the eslint disabled after proper implementation
-	// eslint-disable-next-line no-unused-vars
-	async fetch(request: Request, env: env, ctx: ExecutionContext): Promise<Response> {
-		return new Response('Hello World!');
+	async scheduled(env: env, ctx: ExecutionContext) {
+		ctx.waitUntil(doSomeTaskOnASchedule(env));
+	},
+	async fetch(env: env) {
+		return new Response(JSON.stringify({ currentEnv: env.CURRENT_ENVIRONMENT, message: 'Server is up and running' }));
 	},
 };
