@@ -9,6 +9,6 @@ export default {
 		ctx.waitUntil(doSomeTaskOnASchedule(env));
 	},
 	async fetch(env: env) {
-		return new Response(JSON.stringify({ currentEnv: env.CURRENT_ENVIRONMENT, message: 'Server is up and running' }));
+		return new Response(JSON.stringify({ currentEnv: env.CURRENT_ENVIRONMENT, message: 'Server is up and running', status: 200 }));
 	},
 };
